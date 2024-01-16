@@ -46,7 +46,7 @@ function App() {
       </div>
       <div className="flex-1">
         <h2 className="text-lg">Product list (123.00 kr (total))</h2>
-        Test cases: Empty (hasProducts), total amount
+        Test cases: Empty (hasProducts), total amount, currency converter
         <div className="mt-4">
           <div className="flex justify-between">
             <h3 className="font-bold">Some product name</h3>
