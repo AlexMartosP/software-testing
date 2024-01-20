@@ -67,15 +67,15 @@ const REAL_DATA = [
   },
 ];
 
-describe("responseFormatter", () => {
+describe("responseFormatter from-db", () => {
   it("should format db data to response body format", () => {
-    const products = responseFormatter(DUMMY_DATA);
+    const products = responseFormatter(DUMMY_DATA, "from-db");
 
     expect(products).toEqual(REAL_DATA);
   });
 
   test("that emtpy data returns empty array", () => {
-    expect(responseFormatter([])).toEqual([]);
+    expect(responseFormatter([], "from-db")).toEqual([]);
   });
 
   it("should throw an error if input is in wrong format", () => {
@@ -97,8 +97,44 @@ describe("responseFormatter", () => {
       },
     ];
 
-    responseFormatter(wrongData);
+    responseFormatter(wrongData, "from-db");
 
-    expect(responseFormatter(wrongData)).toEqual(expectedData);
+    expect(responseFormatter(wrongData, "from-db")).toEqual(expectedData);
+  });
+});
+
+describe("responseFormatter to-db", () => {
+  it("should format db data to db format", () => {
+    const products = responseFormatter(REAL_DATA, "to-db");
+
+    expect(products).toEqual(DUMMY_DATA);
+  });
+
+  test("that emtpy data returns empty array", () => {
+    expect(responseFormatter([], "to-db")).toEqual([]);
+  });
+
+  it("should throw an error if input is in wrong format", () => {
+    const wrongData = [
+      {
+        id: 2,
+        name: "Test name",
+        price: 123,
+        created_At: "some date",
+      },
+    ];
+
+    const expectedData = [
+      {
+        id: 2,
+        name: "Test name",
+        price: 123,
+        createdAt: undefined,
+      },
+    ];
+
+    responseFormatter(wrongData, "to-db");
+
+    expect(responseFormatter(wrongData, "from-db")).toEqual(expectedData);
   });
 });
